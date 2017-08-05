@@ -14,7 +14,7 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_Tra
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
 #process.Tracer = cms.Service("Tracer")
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(30000) )
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
 #jec from sqlite
@@ -39,7 +39,8 @@ process.source = cms.Source("PoolSource",
                             fileNames = cms.untracked.vstring(
         #'/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext4-v1/00000/004A0552-3929-E611-BD44-0025905A48F0.root'
 #        '/store/mc/RunIISummer16MiniAODv2/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/08E155A9-FAB6-E611-92BF-00259073E45E.root'
-        '/store/mc/RunIISummer16MiniAODv2/MonoHaa_ZpBaryonic_MZp-10000_MChi-1_13TeV-madgraph/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/44074EBB-16CA-E611-997B-008CFA111348.root'
+#        '/store/mc/RunIISummer16MiniAODv2/MonoHaa_ZpBaryonic_MZp-10000_MChi-1_13TeV-madgraph/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/44074EBB-16CA-E611-997B-008CFA111348.root'
+        '/store/mc/RunIISummer16MiniAODv2/VHToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/60000/106882CB-CBD5-E611-A063-0CC47AD9914A.root'
         ))
 
 #process.load("PhysicsTools.PatAlgos.patSequences_cff")
