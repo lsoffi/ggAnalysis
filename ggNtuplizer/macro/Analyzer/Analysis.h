@@ -841,7 +841,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(bool isSig);
+   virtual void     Loop(int whichSample, int maxEvents, double weight);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };
