@@ -39,7 +39,8 @@ process.source = cms.Source("PoolSource",
                             fileNames = cms.untracked.vstring(
         #'/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext4-v1/00000/004A0552-3929-E611-BD44-0025905A48F0.root'
 #        '/store/mc/RunIISummer16MiniAODv2/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/08E155A9-FAB6-E611-92BF-00259073E45E.root'
-        '/store/mc/RunIISummer16MiniAODv2/MonoHaa_ZpBaryonic_MZp-10000_MChi-1_13TeV-madgraph/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/44074EBB-16CA-E611-997B-008CFA111348.root'
+#        '/store/mc/RunIISummer16MiniAODv2/MonoHaa_ZpBaryonic_MZp-10000_MChi-1_13TeV-madgraph/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/44074EBB-16CA-E611-997B-008CFA111348.root'
+        '/store/mc/RunIISummer16MiniAODv2/ttHToGG_M125_13TeV_powheg_pythia8_v2/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/20840E17-32C6-E611-9E07-24BE05C44BC1.root'
         ))
 
 #process.load("PhysicsTools.PatAlgos.patSequences_cff")
