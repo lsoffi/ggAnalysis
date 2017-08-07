@@ -30,13 +30,13 @@ int runAnalysis(int whichSample=1, int maxEvents=1000) {
 
   double weight;
   //weight = L*xsec*BR/Nevents
-  //XSEC 8 BR [fb]: ggF = 110 , VH = 5, VBF = 8, Signal (Baryonic DM , mDM=1 GeV, mMed = 1 TeV) = 0.4 
+  //XSEC 8 BR [fb]: ggF = 110 , VH = 5, VBF = 8, ttH =1, Signal (Baryonic DM , mDM=1 GeV, mMed = 1 TeV) = 0.4 
 
-  if(whichSample==0)weight=0.0002; //signal
-  if(whichSample==1)weight=0.00396; //ggF
-  if(whichSample==2)weight=0.0105; //VH
-  if(whichSample==3)weight=0.00029; //VBF
-  if(whichSample==3)weight=1.; //ttH
+  if(whichSample==0)weight=1; //signal
+  if(whichSample==1)weight=1; //ggF
+  if(whichSample==2)weight=1; //VH
+  if(whichSample==3)weight=1; //VBF
+  if(whichSample==4)weight=1; //ttH
   if(whichSample==5)weight=1.; //QCD Bkg - weight not relevant
 
       //================ Creating chain 
@@ -48,7 +48,7 @@ int runAnalysis(int whichSample=1, int maxEvents=1000) {
   else if(whichSample==1) fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/GluGluHToGG_M-125_13TeV_powheg_pythia8.root");
   else if(whichSample==2) fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VHToGG_M-125_13TeV_powheg_pythia8_30K.root");
   else if (whichSample==3) fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VBFHToGG_M-125_13TeV_powheg_pythia8.root");
-  else if (whichSample==4) fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VBFHToGG_M-125_13TeV_powheg_pythia8.root");
+  else if (whichSample==4) fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/ttHToGG_M-125_13TeV_powheg_pythia8.root");
   else if (whichSample==5)  fin= new TFile("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/QCD_Pt-40toInf_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8.root");
   TChain* chain =new TChain("EventTree");
 
@@ -56,7 +56,7 @@ int runAnalysis(int whichSample=1, int maxEvents=1000) {
   else if(whichSample==1)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/GluGluHToGG_M-125_13TeV_powheg_pythia8.root/ggNtuplizer/EventTree");
   else if(whichSample==2)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VHToGG_M-125_13TeV_powheg_pythia8_30K.root/ggNtuplizer/EventTree");
   else if(whichSample==3)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VBFHToGG_M-125_13TeV_powheg_pythia8.root/ggNtuplizer/EventTree");
-  else if(whichSample==4)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/VBFHToGG_M-125_13TeV_powheg_pythia8.root/ggNtuplizer/EventTree");
+  else if(whichSample==4)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/ttHToGG_M-125_13TeV_powheg_pythia8.root/ggNtuplizer/EventTree");
   else if(whichSample==5)  chain->Add("root://eoscms//eos/cms/store/group/phys_egamma/soffi/CMSPOS2017/ggntuples/QCD_Pt-40toInf_DoubleEMEnriched_MGG-80toInf_TuneCUETP8M1_13TeV_Pythia8.root/ggNtuplizer/EventTree");
 
   if(whichSample==0)std::cout<<" Running on DM Signal" <<std::endl;
@@ -91,27 +91,6 @@ void makeROCcurve(){
 
   TGraph *g_e = new TGraph();
 
-  int N0 = bkg->GetNbinsX();
-  const unsigned int N = N0;
-  float y[N];
-  float signal[N];
-  int i = 0;
-  bool printFlag=0;
-  for( unsigned int n = 0; n < N; n++ ) {
-    signal[n] = sig->Integral( 0, n ) / sig->Integral( 0, N );
-    y[n] = ( bkg->Integral( 0, n ) / bkg->Integral( 0, N ) );
-    std::cout<<n<<" x: "<<signal[n]<<" y: "<<y[n]<<" value: "<<sig->GetBinCenter(n)<<std::endl;
-    if( y[n] == 0 ) {
-      i++;
-      continue;
-    }
-    if( signal[n] > 0.98 && printFlag == 0 ) {
-      std::cout << "Better than 97 pc eff.(" << signal[n] << "). Bin " << n << ", x value " << n *sig->GetBinWidth( n ) << std::endl;
-      printFlag=1;
-    }
-    g_e->SetPoint( n - i, 1 - signal[n], y[n] );
-    //use 1-n for signal because I am integrating from bin 0 to bin N, which is techincally asking how to reject signal.
-  }
   g_e->SetTitle( "ROCs" );
 
   g_e->GetXaxis()->SetTitle( "signal efficiency" );
